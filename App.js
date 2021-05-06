@@ -17,14 +17,19 @@ export default function App() {
     const removeTodo = (id) => {
         setTodos(prev => prev.filter((todo) => todo.id !== id));
     };
+    const goBack = () => {
+        setTodoId(null)
+    };
     let content = (
         <MainScreen
             todos={todos}
             addTodo={addTodo}
-            removeTodo={removeTodo}/>
+            removeTodo={removeTodo}
+            onOpen={setTodoId}/>
     );
     if(todoId) {
-        content = <TodoScreen/>
+        const selectedTodo = todos.find(t => t.id === todoId);
+        content = <TodoScreen goBack={goBack} todo={selectedTodo}/>
     }
     return (
         <View>
